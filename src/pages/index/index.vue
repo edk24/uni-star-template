@@ -18,8 +18,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-const title = ref('Hello')
+import { format_past } from '@/utils/datetime';
+import { ref } from 'vue';
+const title = ref('Hello');
+
 </script>
 
 <style>
