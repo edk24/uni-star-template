@@ -13,6 +13,22 @@
 - ✅ sass
 - ✅ vconsole (h5 开发模式生效)
 - ✅ pinia
+- ✅ pnpm
+
+## 快速上手
+
+```bash
+# 安装依赖
+pnpm install
+
+# 运行h5
+pnpm run dev:h5
+
+# 运行小程序
+pnpm run dev:mp-weixin
+
+# 更多运行方式请查看 package.json 的 scripts
+```
 
 ## 参考文档
 
