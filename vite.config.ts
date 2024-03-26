@@ -11,8 +11,10 @@ export default defineConfig({
     uni(),
     UnoCSS(),
     // 把 unocss 不支持的 css 转换成 uni-app 的 css, !此处只能放在插件最后一行
+    // @ts-ignore
     uniTwuCssPlugin({
-      source: 'unocss'
+      source: 'unocss',
+      apply: 'build'
     })
   ],
 
@@ -30,5 +32,7 @@ export default defineConfig({
       '@components': path.resolve(__dirname, 'src/components'),
       '@static': path.resolve(__dirname, 'src/static')
     }
-  }
+  },
+
+  transpileDependencies: ['z-paging']
 });

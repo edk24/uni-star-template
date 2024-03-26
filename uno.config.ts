@@ -18,7 +18,7 @@ export default defineConfig({
     'btn-info': 'bg-info hover:bg-info/[0.7]',
     'btn-warn': 'bg-warn hover:bg-warn/[0.7]',
     'btn-danger': 'bg-danger hover:bg-danger/[0.7]',
-    'btn-block': 'block w-full py-2',
+    'btn-block': 'block w-full py-2! text-lg',
     'btn-circle': 'rounded-full',
     'btn-sm': 'px-2 py-1 text-sm',
     'btn-lg': 'px-4 py-2 text-lg',
