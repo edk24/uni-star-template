@@ -37,4 +37,4 @@ pnpm run dev:mp-weixin
 ## 常见问题
 
 - Q: 已安装 vscode 扩展 `UnoCss` 但是没有原子化样式提示
-    > 卸载 `Tailwind CSS IntelliSense` 插件
+  > 卸载 `Tailwind CSS IntelliSense` 插件

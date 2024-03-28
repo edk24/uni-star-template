@@ -1,15 +1,15 @@
-import { defineStore } from 'pinia'
-import { getToken, removeToken, setToken } from '../utils/auth'
-import { apiGetUserInfo } from '@/api/user'
+import { defineStore } from "pinia";
+import { getToken, removeToken, setToken } from "../utils/auth";
+import { apiGetUserInfo } from "@/api/user";
 
-export const useUserStore = defineStore('user', {
+export const useUserStore = defineStore("user", {
     state: () => {
         return {
             // 用户信息
             userInfo: {},
             // token
-            token: getToken() || null,
-        }
+            token: getToken() || null
+        };
     },
 
     getters: {
@@ -20,22 +20,22 @@ export const useUserStore = defineStore('user', {
     actions: {
         // 获取用户信息
         async getUser() {
-            const data = await apiGetUserInfo()
-            this.userInfo = data
+            const data = await apiGetUserInfo();
+            this.userInfo = data;
         },
 
         // 登录
         login(token: string) {
-            this.token = token
-            setToken(token)
-            this.getUser()
+            this.token = token;
+            setToken(token);
+            this.getUser();
         },
 
         // 注销
         logout() {
-            this.token = ''
-            this.userInfo = {}
-            removeToken()
+            this.token = "";
+            this.userInfo = {};
+            removeToken();
         }
     }
-})
+});

@@ -1,10 +1,11 @@
 {
-  "recommendations": [
-    "vue.volar",
-    "lihuiwang.vue-alias-skip",
-    "editorconfig.editorconfig",
-    "wix.vscode-import-cost",
-    "antfu.unocss",
-    "dbaeumer.vscode-eslint"
-  ]
+    "recommendations": [
+        "vue.volar",
+        "lihuiwang.vue-alias-skip",
+        "editorconfig.editorconfig",
+        "wix.vscode-import-cost",
+        "antfu.unocss",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode"
+    ]
 }

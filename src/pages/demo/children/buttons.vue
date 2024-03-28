@@ -27,7 +27,6 @@
             <button class="btn btn-danger btn-lg">危险</button>
         </view>
 
-
         <view class="font-700">圆的按钮</view>
         <view class="grid grid-cols-3 gap-4 px-4 py-4">
             <button class="btn btn-primary btn-circle">主要</button>
@@ -37,8 +36,6 @@
             <button class="btn btn-danger btn-circle">危险</button>
         </view>
 
-
-
         <view class="font-700">块级按钮</view>
         <view class="grid grid-cols-1 gap-4 px-4 py-4">
             <button class="btn btn-primary btn-block">主要</button>
@@ -47,7 +44,5 @@
             <button class="btn btn-warn btn-block">警告</button>
             <button class="btn btn-danger btn-block">危险</button>
         </view>
-
     </view>
-
 </template>

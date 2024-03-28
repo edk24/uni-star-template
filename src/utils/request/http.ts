@@ -1,106 +1,103 @@
-import { isFunction } from '@/utils/common'
-import type { HttpRequestOptions, RequestConfig, RequestOptions, UploadFileOption } from './type'
-import { RequestErrMsgEnum, RequestMethodsEnum } from '@/enums/requestEnums'
-import requestCancel from './cancel'
+import { isFunction } from "@/utils/common";
+import type { HttpRequestOptions, RequestConfig, RequestOptions, UploadFileOption } from "./type";
+import { RequestErrMsgEnum, RequestMethodsEnum } from "@/enums/requestEnums";
+import requestCancel from "./cancel";
 
 export default class HttpRequest {
-    private readonly options: HttpRequestOptions
+    private readonly options: HttpRequestOptions;
     constructor(options: HttpRequestOptions) {
-        this.options = options
+        this.options = options;
     }
     /**
      * @description 重新请求
      */
     retryRequest(options: RequestOptions, config: RequestConfig) {
-        const { retryCount, retryTimeout } = config
+        const { retryCount, retryTimeout } = config;
         if (!retryCount || options.method?.toUpperCase() == RequestMethodsEnum.POST) {
-            return Promise.reject()
+            return Promise.reject();
         }
-        uni.showLoading({ title: '加载中...' })
-        config.hasRetryCount = config.hasRetryCount ?? 0
+        uni.showLoading({ title: "加载中..." });
+        config.hasRetryCount = config.hasRetryCount ?? 0;
         if (config.hasRetryCount >= retryCount) {
-            return Promise.reject()
+            return Promise.reject();
         }
-        config.hasRetryCount++
-        config.requestHooks.requestInterceptorsHook = (options) => options
+        config.hasRetryCount++;
+        config.requestHooks.requestInterceptorsHook = (options) => options;
         return new Promise((resolve) => setTimeout(resolve, retryTimeout))
             .then(() => this.request(options, config))
-            .finally(() => uni.hideLoading())
+            .finally(() => uni.hideLoading());
     }
     /**
      * @description get请求
      */
     get<T = any>(options: RequestOptions, config?: Partial<RequestConfig>): Promise<T> {
-        return this.request({ ...options, method: RequestMethodsEnum.GET }, config)
+        return this.request({ ...options, method: RequestMethodsEnum.GET }, config);
     }
 
     /**
      * @description post请求
      */
     post<T = any>(options: RequestOptions, config?: Partial<RequestConfig>): Promise<T> {
-        return this.request({ ...options, method: RequestMethodsEnum.POST }, config)
+        return this.request({ ...options, method: RequestMethodsEnum.POST }, config);
     }
 
     /**
      * @description 上传图片
      */
     uploadFile(options: UploadFileOption, config?: Partial<RequestConfig>): Promise<any> {
-        let mergeOptions: RequestOptions = Object.assign({}, this.options.requestOptions, options)
-        const mergeConfig: RequestConfig = Object.assign({}, this.options, config)
+        let mergeOptions: RequestOptions = Object.assign({}, this.options.requestOptions, options);
+        const mergeConfig: RequestConfig = Object.assign({}, this.options, config);
         const { requestInterceptorsHook, responseInterceptorsHook, responseInterceptorsCatchHook } =
-            mergeConfig.requestHooks || {}
+            mergeConfig.requestHooks || {};
         if (requestInterceptorsHook && isFunction(requestInterceptorsHook)) {
-            mergeOptions = requestInterceptorsHook(mergeOptions, mergeConfig)
+            mergeOptions = requestInterceptorsHook(mergeOptions, mergeConfig);
         }
         return new Promise((resolve, reject) => {
             uni.uploadFile({
                 ...mergeOptions,
                 success: async (response) => {
                     if (response.statusCode == 200) {
-                        response.data = JSON.parse(response.data)
+                        response.data = JSON.parse(response.data);
                         if (responseInterceptorsHook && isFunction(responseInterceptorsHook)) {
                             try {
-                                response = await responseInterceptorsHook(response, mergeConfig)
-                                resolve(response)
+                                response = await responseInterceptorsHook(response, mergeConfig);
+                                resolve(response);
                             } catch (error) {
-                                reject(error)
+                                reject(error);
                             }
-                            return
+                            return;
                         }
-                        resolve(response)
+                        resolve(response);
                     }
                 },
                 fail: async (err) => {
-                    if (
-                        responseInterceptorsCatchHook &&
-                        isFunction(responseInterceptorsCatchHook)
-                    ) {
-                        reject(await responseInterceptorsCatchHook(mergeOptions, err))
-                        return
+                    if (responseInterceptorsCatchHook && isFunction(responseInterceptorsCatchHook)) {
+                        reject(await responseInterceptorsCatchHook(mergeOptions, err));
+                        return;
                     }
-                    reject(err)
+                    reject(err);
                 },
                 complete: (response: any) => {
                     if (response.statusCode == 200) {
                         if (response.data instanceof String) {
-                            response.data = JSON.parse(response.data)
+                            response.data = JSON.parse(response.data);
                         }
-                        resolve(response.data)
+                        resolve(response.data);
                     }
                 }
-            })
-        })
+            });
+        });
     }
     /**
      * @description 请求函数
      */
     async request(options: RequestOptions, config?: Partial<RequestConfig>): Promise<any> {
-        let mergeOptions: RequestOptions = Object.assign({}, this.options.requestOptions, options)
-        const mergeConfig: RequestConfig = Object.assign({}, this.options, config)
+        let mergeOptions: RequestOptions = Object.assign({}, this.options.requestOptions, options);
+        const mergeConfig: RequestConfig = Object.assign({}, this.options, config);
         const { requestInterceptorsHook, responseInterceptorsHook, responseInterceptorsCatchHook } =
-            mergeConfig.requestHooks || {}
+            mergeConfig.requestHooks || {};
         if (requestInterceptorsHook && isFunction(requestInterceptorsHook)) {
-            mergeOptions = requestInterceptorsHook(mergeOptions, mergeConfig)
+            mergeOptions = requestInterceptorsHook(mergeOptions, mergeConfig);
         }
         return new Promise((resolve, reject) => {
             const requestTask = uni.request({
@@ -108,40 +105,37 @@ export default class HttpRequest {
                 async success(response) {
                     if (responseInterceptorsHook && isFunction(responseInterceptorsHook)) {
                         try {
-                            response = await responseInterceptorsHook(response, mergeConfig)
-                            resolve(response)
+                            response = await responseInterceptorsHook(response, mergeConfig);
+                            resolve(response);
                         } catch (error) {
-                            reject(error)
+                            reject(error);
                         }
-                        return
+                        return;
                     }
-                    resolve(response)
+                    resolve(response);
                 },
                 fail: async (err) => {
                     if (err.errMsg == RequestErrMsgEnum.TIMEOUT) {
                         this.retryRequest(mergeOptions, mergeConfig)
                             .then((res) => resolve(res))
-                            .catch((err) => reject(err))
-                        return
+                            .catch((err) => reject(err));
+                        return;
                     }
 
-                    if (
-                        responseInterceptorsCatchHook &&
-                        isFunction(responseInterceptorsCatchHook)
-                    ) {
-                        reject(await responseInterceptorsCatchHook(mergeOptions, err))
-                        return
+                    if (responseInterceptorsCatchHook && isFunction(responseInterceptorsCatchHook)) {
+                        reject(await responseInterceptorsCatchHook(mergeOptions, err));
+                        return;
                     }
-                    reject(err)
+                    reject(err);
                 },
                 complete(err) {
                     if (err.errMsg !== RequestErrMsgEnum.ABORT) {
-                        requestCancel.remove(options.url)
+                        requestCancel.remove(options.url);
                     }
                 }
-            })
-            const { ignoreCancel } = mergeConfig
-            !ignoreCancel && requestCancel.add(options.url, requestTask)
-        })
+            });
+            const { ignoreCancel } = mergeConfig;
+            !ignoreCancel && requestCancel.add(options.url, requestTask);
+        });
     }
 }

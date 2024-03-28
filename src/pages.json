@@ -1,42 +1,44 @@
 {
-  "pages": [
-    {
-      "path": "pages/index/index",
-      "style": {
-        "navigationBarTitleText": "uni-app"
-      }
+    "pages": [
+        {
+            "path": "pages/index/index",
+            "style": {
+                "navigationBarTitleText": "uni-app"
+            }
+        },
+        {
+            "path": "pages/demo/index"
+        },
+        {
+            "path": "pages/demo/children/buttons"
+        },
+        {
+            "path": "pages/demo/children/dayjs"
+        },
+        {
+            "path": "pages/demo/children/label"
+        },
+        {
+            "path": "pages/demo/children/z-paging"
+        },
+        {
+            "path": "pages/demo/children/colors"
+        }
+    ],
+    "globalStyle": {
+        "navigationBarTextStyle": "black",
+        "navigationBarTitleText": "uni-app",
+        "navigationBarBackgroundColor": "#F8F8F8",
+        "backgroundColor": "#F8F8F8",
+        // 支付宝和钉钉小程序需要取消回弹效果, 兼容: z-paging
+        "mp-alipay": {
+            "allowsBounceVertical": "NO"
+        }
     },
-    {
-      "path": "pages/demo/index"
-    },
-    {
-      "path": "pages/demo/children/buttons"
-    },{
-      "path": "pages/demo/children/dayjs"
-    },{
-      "path": "pages/demo/children/label"
-    },
-    {
-      "path": "pages/demo/children/z-paging"
-    },
-    {
-      "path": "pages/demo/children/colors"
+    "easycom": {
+        "autoscan": true,
+        "custom": {
+            "^(?!z-paging-refresh|z-paging-load-more)z-paging(.*)": "z-paging/components/z-paging$1/z-paging$1.vue"
+        }
     }
-  ],
-  "globalStyle": {
-    "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "uni-app",
-    "navigationBarBackgroundColor": "#F8F8F8",
-    "backgroundColor": "#F8F8F8",
-    // 支付宝和钉钉小程序需要取消回弹效果, 兼容: z-paging
-    "mp-alipay": {
-      "allowsBounceVertical": "NO"
-    }
-  },
-  "easycom": {
-    "autoscan": true,
-    "custom": {
-      "^(?!z-paging-refresh|z-paging-load-more)z-paging(.*)": "z-paging/components/z-paging$1/z-paging$1.vue"
-    }
-  }
 }

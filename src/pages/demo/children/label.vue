@@ -57,7 +57,6 @@
             </view>
         </view>
 
-
         <view class="font-700">圆的标签</view>
         <view class="grid grid-cols-3 gap-4 px-4 py-4">
             <view>
@@ -76,7 +75,5 @@
                 <view class="label label-danger label-circle">危险</view>
             </view>
         </view>
-
     </view>
-
 </template>

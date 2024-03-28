@@ -1,5 +1,3 @@
 <template>
-    <view class="">
-
-    </view>
+    <view class=""> </view>
 </template>
