@@ -1,1 +1,24 @@
-{}
+{
+  // 保存自动处理格式化等
+  "editor.formatOnType": true,
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.codeAction.showDocumentation": {
+    "enable": true
+  },
+  "eslint.validate": ["javascript", "typescript", "html", "vue"],
+  // 关闭不重要的文件监听, 节省内存的 cpu
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/*/**": true,
+    "**/.hg/store/**": true
+  },
+  // 关闭 vite 插件 自动运行项目 (很烦)
+  "vite.autoStart": false,
+  "terminal.integrated.env.osx": {
+    "FIG_NEW_SESSION": "1"
+  }
+}

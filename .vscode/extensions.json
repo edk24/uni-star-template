@@ -4,6 +4,7 @@
     "lihuiwang.vue-alias-skip",
     "editorconfig.editorconfig",
     "wix.vscode-import-cost",
-    "antfu.unocss"
+    "antfu.unocss",
+    "dbaeumer.vscode-eslint"
   ]
 }
