@@ -19,3 +19,8 @@ dist
 *.njsproj
 *.sln
 *.sw?
+
+# lock
+pnpm-lock.*
+yarn.lock
+package-lock.*
