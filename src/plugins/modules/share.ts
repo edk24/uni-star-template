@@ -1,6 +1,7 @@
+import type { App } from "vue";
 import config from "@/config";
 
-export default {
+const mixin = {
     data() {
         return {};
     },
@@ -42,4 +43,9 @@ export default {
         };
     },
     methods: {}
+};
+
+
+export default (app: App) => {
+    app.mixin(mixin);
 };
