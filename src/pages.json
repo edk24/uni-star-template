@@ -5,24 +5,6 @@
             "style": {
                 "navigationBarTitleText": "uni-app"
             }
-        },
-        {
-            "path": "pages/demo/index"
-        },
-        {
-            "path": "pages/demo/children/buttons"
-        },
-        {
-            "path": "pages/demo/children/dayjs"
-        },
-        {
-            "path": "pages/demo/children/label"
-        },
-        {
-            "path": "pages/demo/children/z-paging"
-        },
-        {
-            "path": "pages/demo/children/colors"
         }
     ],
     "globalStyle": {
