@@ -4,12 +4,12 @@ title: 首页
 # heroImage: https://vuejs.press/images/hero.png
 actions:
   - text: 快速开始
-    link: /getting-started.html
+    link: /guide.html
     type: primary
 
-  - text: 使用手册
-    link: https://vuejs.press/guide/introduction.html
-    type: secondary
+  # - text: 使用手册
+  #   link: https://vuejs.press/guide/introduction.html
+  #   type: secondary
 
 features:
   - title: 使用 TypeScript

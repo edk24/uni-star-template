@@ -30,6 +30,23 @@ export const showAlert = (content: string, title: string = "提示"): Promise<Un
 };
 
 /**
+ * 显示输入框
+ * 
+ * @param content 
+ * @param title 
+ * @param placeholderText 
+ * @returns 
+ */
+export const showPrompt = (content: string, title: string = "提示", placeholderText: string = '请输入'): Promise<UniApp.ShowModalRes> => {
+    return uni.showModal({
+        title: title,
+        content: content,
+        editable: true,
+        placeholderText: placeholderText
+    });
+};
+
+/**
  * 弹出加载动画
  *
  * @param text

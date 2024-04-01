@@ -1,12 +1,23 @@
 # 指南
 
-This is a normal page, which contains VuePress basics.
-
 ## 介绍
 
-You can add markdown files in your vuepress directory, every markdown file will be converted to a page in your site.
+`uni-star-template` 是一个基于 `UniApp + Vue3 + TypeScript` 修改完善而来的项目模板；
 
-See [routing][] for more details.
+下列是项目模板集成的一些库，开箱即用
+
+- ✅ uniapp
+- ✅ vue3
+- ✅ vite
+- ✅ typescript
+- ✅ unocss (配合 `vite-plugin-uni-twucss` 处理单位为 `rpx`, 插件提示 `rem` 是正常的)
+- ✅ z-paging (分页组件)
+- ✅ prettier
+- ✅ eslint
+- ✅ sass
+- ✅ vconsole (h5 开发模式生效)
+- ✅ pinia
+- ✅ pnpm
 
 ## 快速上手
 
