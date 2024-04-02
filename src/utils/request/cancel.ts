@@ -18,7 +18,9 @@ export class RequestCancel {
     remove(url: string) {
         if (cancelerMap.has(url)) {
             const requestTask = cancelerMap.get(url);
-            requestTask && requestTask.abort();
+            if (requestTask) {
+                requestTask.abort();
+            }
             cancelerMap.delete(url);
         }
     }

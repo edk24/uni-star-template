@@ -8,8 +8,11 @@ import appconfig from "@/config";
 
 const message = useMessage();
 const requestHooks: RequestHooks = {
+    /**
+     * 请求拦截器
+     */
     requestInterceptorsHook(options, config) {
-        const { urlPrefix, baseUrl, withToken, isAuth } = config;
+        const { urlPrefix, baseUrl, withToken } = config;
         options.header = options.header ?? {};
         if (urlPrefix) {
             options.url = `${urlPrefix}${options.url}`;
@@ -24,6 +27,10 @@ const requestHooks: RequestHooks = {
         }
         return options;
     },
+
+    /**
+     * 响应拦截器
+     */
     responseInterceptorsHook(response, config) {
         const { isTransformResponse, isReturnDefaultResponse, isAuth } = config;
 
@@ -39,7 +46,9 @@ const requestHooks: RequestHooks = {
         const { code, data, msg, show } = response.data as any;
         switch (code) {
             case RequestCodeEnum.SUCCESS:
-                msg && show && message.toast(msg);
+                if (msg && show) {
+                    message.toast(msg);
+                }
                 return data;
             case RequestCodeEnum.FAILED:
                 message.toast(msg);
@@ -56,6 +65,10 @@ const requestHooks: RequestHooks = {
                 return data;
         }
     },
+
+    /**
+     * 响应拦截器异常
+     */
     responseInterceptorsCatchHook(options, err) {
         if (options.method?.toUpperCase() == RequestMethodsEnum.POST) {
             console.log("🔥请求失败:", err, options);
@@ -70,17 +83,11 @@ const defaultOptions: HttpRequestOptions = {
         header: { version: "1.0.0" }
     },
     baseUrl: `${import.meta.env.VITE_APP_BASE_URL || ""}/`,
-    //是否返回默认的响应
     isReturnDefaultResponse: false,
-    // 需要对返回数据进行处理
     isTransformResponse: true,
-    // 接口拼接地址
     urlPrefix: "",
-    // 忽略重复请求
     ignoreCancel: false,
-    // 是否携带token
     withToken: true,
-    // 是否需要登录
     isAuth: false,
     retryCount: 2,
     retryTimeout: 300,

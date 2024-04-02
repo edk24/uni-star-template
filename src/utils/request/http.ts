@@ -5,6 +5,7 @@ import requestCancel from "./cancel";
 
 export default class HttpRequest {
     private readonly options: HttpRequestOptions;
+
     constructor(options: HttpRequestOptions) {
         this.options = options;
     }
@@ -13,7 +14,7 @@ export default class HttpRequest {
      */
     retryRequest(options: RequestOptions, config: RequestConfig) {
         const { retryCount, retryTimeout } = config;
-        if (!retryCount || options.method?.toUpperCase() == RequestMethodsEnum.POST) {
+        if (!retryCount || options.method?.toUpperCase() === RequestMethodsEnum.POST) {
             return Promise.reject();
         }
         uni.showLoading({ title: "加载中..." });
@@ -56,7 +57,7 @@ export default class HttpRequest {
             uni.uploadFile({
                 ...mergeOptions,
                 success: async (response) => {
-                    if (response.statusCode == 200) {
+                    if (response.statusCode === 200) {
                         response.data = JSON.parse(response.data);
                         if (responseInterceptorsHook && isFunction(responseInterceptorsHook)) {
                             try {
@@ -78,7 +79,7 @@ export default class HttpRequest {
                     reject(err);
                 },
                 complete: (response: any) => {
-                    if (response.statusCode == 200) {
+                    if (response.statusCode === 200) {
                         if (response.data instanceof String) {
                             response.data = JSON.parse(response.data);
                         }
@@ -115,7 +116,7 @@ export default class HttpRequest {
                     resolve(response);
                 },
                 fail: async (err) => {
-                    if (err.errMsg == RequestErrMsgEnum.TIMEOUT) {
+                    if (err.errMsg === RequestErrMsgEnum.TIMEOUT) {
                         this.retryRequest(mergeOptions, mergeConfig)
                             .then((res) => resolve(res))
                             .catch((err) => reject(err));
@@ -135,7 +136,9 @@ export default class HttpRequest {
                 }
             });
             const { ignoreCancel } = mergeConfig;
-            !ignoreCancel && requestCancel.add(options.url, requestTask);
+            if (!ignoreCancel) {
+                requestCancel.add(options.url, requestTask);
+            }
         });
     }
 }
