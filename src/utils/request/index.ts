@@ -4,7 +4,7 @@ import { getToken } from "../auth";
 import { RequestCodeEnum, RequestMethodsEnum } from "@/enums/requestEnums";
 import { useUserStore } from "@/stores/user";
 import { useMessage } from "../message";
-import appconfig from "@/config";
+import appconfig from "@/setting";
 
 const message = useMessage();
 const requestHooks: RequestHooks = {

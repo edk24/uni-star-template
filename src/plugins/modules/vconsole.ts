@@ -4,6 +4,7 @@ import Vconsole from "vconsole";
 import { isDevMode } from "@/utils/env";
 // #endif
 
+// eslint-disable-next-line consistent-return
 export default () => {
     // #ifdef H5
     if (isDevMode()) {

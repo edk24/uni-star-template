@@ -1,51 +1,74 @@
+import setting from "@/setting";
+import { objToQueryParams } from "@/utils/url";
 import type { App } from "vue";
-import config from "@/config";
+
+/**
+ * 小程序分享混入
+ */
 
 const mixin = {
     data() {
-        return {};
+        return {
+            // 小程序分享配置
+            shareConfig: {
+                // 分享图片
+                imageUrl: setting.defaultShareImage,
+                // 分享标题
+                title: setting.defaultShareTitle,
+                // 分享朋友圈链接
+                timeLinePath: setting.shareTimeLineLink
+            }
+        };
     },
-    onLoad: function () {},
-    // @ts-ignore
-    onShareAppMessage(res) {
-        // @ts-ignore
-        const imageUrl = this.shareImageUrl || "";
-        // @ts-ignore
-        const title = this.shareTitle || config.miniapp.defaultShareTitle;
+    /**
+     * 小程序分享
+     */
+    onShareAppMessage(res: any): object {
+        // 分享图片
+        const imageUrl = this.shareConfig.imageUrl || "";
+        // 分享标题
+        const title = this.shareConfig.title || setting.defaultShareTitle;
+        // 路由地址
+        const route = this.shareConfig.path || `/${this.$scope.route}`;
+        // 接收参数
+        const options = this.$scope.options;
 
+        // button
         if (res.from === "button") {
             // 这块需要传参，不然链接地址进去获取不到数据
-            // @ts-ignore
-            const path = `/` + this.$scope.route + `?item=` + this.$scope.options.item;
+            const path = `${route}?` + objToQueryParams(options);
             return {
                 title,
                 path,
                 imageUrl
             };
         }
-        if (res.from === "menu") {
-            return {
-                title,
-                imageUrl
-            };
-        }
+
+        // menu
+        return {
+            title,
+            imageUrl
+        };
     },
-    // 分享到朋友圈
-    // @ts-ignore
-    onShareTimeline() {
-        // @ts-ignore
-        const title = this.shareTitle || config.miniapp.defaultShareTitle;
-        const path = config.miniapp.shareTimeLineLink;
+
+    /**
+     * 分享到朋友圈
+     */
+    onShareTimeline(): object {
+        const title = this.shareConfig.title;
+        const path = this.shareConfig.timeLinePath;
+        const imageUrl = setting.shareTimeLinkImage;
+
         return {
             title,
             path,
-            imageUrl: ""
+            imageUrl
         };
-    },
-    methods: {}
+    }
 };
 
-
 export default (app: App) => {
+    // #ifdef MP
     app.mixin(mixin);
+    // #endif
 };

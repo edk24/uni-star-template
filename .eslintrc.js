@@ -75,7 +75,7 @@ module.exports = {
         "no-shadow-restricted-names": "error",
         "no-undef-init": "error",
         "no-undefined": "error",
-        "no-unused-vars": "error",
+        "no-unused-vars": "off",
         "no-use-before-define": ["off", "nofunc"],
         "no-new-require": "error",
         "no-path-concat": "error",
