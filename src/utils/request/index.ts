@@ -4,7 +4,7 @@ import { getToken } from "../auth";
 import { RequestCodeEnum, RequestMethodsEnum } from "@/enums/requestEnums";
 import { useUserStore } from "@/stores/user";
 import { useMessage } from "../message";
-import appconfig from "@/setting";
+import { loginPage } from "@/setting";
 
 const message = useMessage();
 const requestHooks: RequestHooks = {
@@ -57,7 +57,13 @@ const requestHooks: RequestHooks = {
             case RequestCodeEnum.TOKEN_INVALID: // Token 过期 | 登录失效
                 userStore.logout();
                 if (isAuth && !getToken()) {
-                    appconfig.needLoginHandle();
+                    message.toast("请先登录后再试");
+                    // 防止小程序跳转页面看不到 Toast
+                    setTimeout(() => {
+                        uni.navigateTo({
+                            url: loginPage
+                        });
+                    }, 800);
                 }
                 return Promise.reject();
 
