@@ -1,4 +1,4 @@
-import { objToQueryParams } from "@/utils/url";
+import { objectToQuery } from "@/utils/url";
 import type { App } from "vue";
 import { shareConfig } from "@/setting";
 
@@ -15,7 +15,7 @@ const mixin = {
         const route = ["/", this.$scope.route].join("");
         // @ts-ignore
         const options = this.$scope.options;
-        const query = objToQueryParams(options);
+        const query = objectToQuery(options);
         const path = route + "?" + query;
 
         const shareData = { ...shareConfig, ...{ path } };
@@ -29,7 +29,7 @@ const mixin = {
         // 获取当前页面参数
         // @ts-ignore
         const options = this.$scope.options;
-        const query = objToQueryParams(options);
+        const query = objectToQuery(options);
         const shareData = { ...shareConfig, ...{ query, imageUrl: "" } }; // 默认 imageUrl 为空（使用小程序 logo）
 
         return shareData;
