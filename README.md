@@ -1,4 +1,4 @@
-# edk24/uniapp-project-template
+# edk24/uni-star-template
 
 ## 技术选型
 
