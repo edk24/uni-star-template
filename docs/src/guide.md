@@ -86,3 +86,25 @@ pnpm run lint
 | quickapp-webview-union | 快应用-联盟                         |
 
 ## 开发规范了解
+
+## 平台差异
+
+### h5
+
+- 开发调试模式时自动运行 `vconsole`，便于在手机浏览器上调试。
+
+### 小程序
+
+#### 通用分享 (全局混入)
+
+让所有页面的胶囊分享与分享到朋友圈可用
+
+**常见问题**
+
+- 1. 修改分享标题与图片
+
+    > 在 `src/setting.ts` 中修改 `shareConfig`。
+
+- 2. 如何自定义某个页面的分享配置，自定义页面分享不生效
+
+    > 把 `onShareTimeline` 和 `onShareAppMessage` 写到 `onLoad | onMounted` 里面即可生效。
