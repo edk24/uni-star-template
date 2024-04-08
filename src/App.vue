@@ -1,10 +1,12 @@
 <script lang="ts" setup>
 import { onLaunch, onShow, onHide, onError, onShareTimeline } from "@dcloudio/uni-app";
-
+import { onMounted } from "vue";
 // 启动监听
 onLaunch(() => {
     console.log("App Launch");
+});
 
+onMounted(() => {
     onShareTimeline(() => {
         const { imageUrl, title, query } = {
             imageUrl: "",
@@ -36,4 +38,3 @@ onError((e) => {
 });
 </script>
 <style></style>
-@/utils/routes

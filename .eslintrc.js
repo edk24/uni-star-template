@@ -108,6 +108,7 @@ module.exports = {
         "no-class-assign": "error",
         "no-const-assign": "error",
         "no-dupe-class-members": "error",
-        "require-yield": "error"
+        "require-yield": "error",
+        "@typescript-eslint/ban-ts-comment": "off"
     }
 };

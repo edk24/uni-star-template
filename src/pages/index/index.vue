@@ -4,22 +4,22 @@
 
 <script setup lang="ts">
 import { onShareTimeline } from "@dcloudio/uni-app";
+import { onMounted } from "vue";
 
-// import { useMiniAppShare } from "@/composables/useMiniAppShare";
-// useMiniAppShare();
+onMounted(() => {
+    onShareTimeline(() => {
+        const { imageUrl, title, query } = {
+            imageUrl: "",
+            title: "分享标题",
+            query: ""
+        };
 
-onShareTimeline(() => {
-    const { imageUrl, title, query } = {
-        imageUrl: "",
-        title: "分享标题111",
-        query: ""
-    };
-
-    return {
-        title,
-        query,
-        imageUrl
-    };
+        return {
+            title,
+            query,
+            imageUrl
+        };
+    });
 });
 </script>
 

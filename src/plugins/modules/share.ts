@@ -1,57 +1,38 @@
-import { shareConfig } from "@/setting";
 import { objToQueryParams } from "@/utils/url";
 import type { App } from "vue";
+import { shareConfig } from "@/setting";
 
 /**
  * 小程序分享混入
  */
 const mixin = {
-    data() {
-        return {
-            shareConfig: shareConfig
-        };
-    },
     /**
      * 小程序分享
      */
-    onShareAppMessage(res: any): object {
-        const { imageUrl, title } = this.shareConfig.base;
+    onShareAppMessage(): object {
+        // 获取当前页面路径与参数
+        // @ts-ignore
+        const route = ["/", this.$scope.route].join("");
+        // @ts-ignore
+        const options = this.$scope.options;
+        const query = objToQueryParams(options);
+        const path = route + "?" + query;
 
-        let path = this.shareConfig.base.path;
-        if (!path) {
-            const currentPage = this.$scope.route;
-            const query = objToQueryParams(this.$scope.options);
-            path = `/${currentPage}?${query}`;
-        }
-
-        // button
-        if (res.from === "button") {
-            // 这块需要传参，不然链接地址进去获取不到数据
-            return {
-                title,
-                path,
-                imageUrl
-            };
-        }
-
-        // menu
-        return {
-            title,
-            imageUrl
-        };
+        const shareData = { ...shareConfig, ...{ path } };
+        return shareData;
     },
 
     /**
      * 分享到朋友圈
      */
     onShareTimeline(): object {
-        const { imageUrl, title, query } = this.shareConfig.timeLine;
+        // 获取当前页面参数
+        // @ts-ignore
+        const options = this.$scope.options;
+        const query = objToQueryParams(options);
+        const shareData = { ...shareConfig, ...{ query, imageUrl: "" } }; // 默认 imageUrl 为空（使用小程序 logo）
 
-        return {
-            title,
-            query,
-            imageUrl
-        };
+        return shareData;
     }
 };
 
