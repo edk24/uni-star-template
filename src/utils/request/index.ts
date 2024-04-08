@@ -94,7 +94,7 @@ const defaultOptions: HttpRequestOptions = {
     urlPrefix: "",
     ignoreCancel: false,
     withToken: true,
-    isAuth: false,
+    isAuth: true,
     retryCount: 2,
     retryTimeout: 300,
     requestHooks: requestHooks
