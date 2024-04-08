@@ -121,4 +121,60 @@ showPrompt('您的登录已过期，请重新登录～')
 
 ### 请求 `Request`
 
-### 下载 `Downlaod`
+实现了拦截器，可根据业务自行修改 `src/utils/request/index.ts`
+
+#### request
+
+发送请求
+
+```typescript
+import request from "@/utils/request";
+
+request.request<T = any>(
+    options: RequestOptions, 
+    config?: Partial<RequestConfig>
+): Promise<T>
+```
+
+:::tip Tip
+
+request 具有 `get | post | uploadFile` 等便捷写法，参数基本差不多；
+
+就不一一列举了，直接用 `request.get() | request.post()` 即可
+
+:::
+
+参数说明：
+
+- **options**：同 uni.request 的参数选项, 具体参考 [uni.request](https://uniapp.dcloud.net.cn/api/request/request.html)
+- **config**：可空，请求配置
+  - baseUrl：可空，基础 url，默认 `${import.meta.env.VITE_APP_BASE_URL || ""}/`
+  - isReturnDefaultResponse：是否返回默认响应，默认 `false`
+  - isTransformResponse：是否对返回数据进行处理，默认 `true`
+  - urlPrefix：接口拼接地址，默认空
+  - ignoreCancel：忽略重复请求取消，默认 `false`
+  - withToken：是否携带 token，默认 `true`
+  - isAuth：接口是否需要鉴权，默认 `true`
+  - retryCount：重复尝试次数，默认 `2`
+  - retryTimeout：重复超时，默认 `300`
+
+示例：
+
+```typescript
+import request from "@/utils/request";
+
+/**
+ * 获取用户信息
+ */
+export const apiGetUserInfo = () => {
+    return request.request({
+        url: "/api/user/get",
+        method: 'GET'
+    });
+};
+```
+
+常见问题：
+
+- 暂无
+
