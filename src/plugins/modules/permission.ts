@@ -17,7 +17,7 @@ function initPermission() {
                 const url = args.url.split("?")[0];
 
                 // 在白名单中的页面不做拦截
-                const isWhite = !whiteList.includes(url);
+                const isWhite = whiteList.includes(url);
                 if (isWhite) {
                     return;
                 }
