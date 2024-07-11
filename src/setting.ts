@@ -18,7 +18,7 @@ export const loginPage = "/pages/login/login";
 /**
  * 白名单页面 （不做登录检查）
  */
-export const whiteList = [loginPage, "/pages/index/login"];
+export const whiteList = [loginPage, "/"];
 
 /**
  * 小程序通用分享配置
