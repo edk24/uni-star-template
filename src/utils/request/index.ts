@@ -22,7 +22,7 @@ const requestHooks: RequestHooks = {
         }
         const token = getToken();
         // 添加token
-        if (withToken && !options.header.token) {
+        if (withToken && token) {
             options.header.token = token;
         }
         return options;
