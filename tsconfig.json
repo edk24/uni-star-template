@@ -8,7 +8,8 @@
         },
         "lib": ["esnext", "dom"],
         "types": ["@dcloudio/types"],
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "verbatimModuleSyntax": true
     },
     "exclude": ["docs/**/*"],
     "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
