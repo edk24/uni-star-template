@@ -1,0 +1,6 @@
+// 去除默认 button 样式
+button {
+    &::after {
+        display: none;
+    }
+}

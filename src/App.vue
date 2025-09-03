@@ -1,25 +1,8 @@
 <script lang="ts" setup>
-import { onLaunch, onShow, onHide, onError, onShareTimeline } from "@dcloudio/uni-app";
-import { onMounted } from "vue";
+import { onLaunch, onShow, onHide, onError } from "@dcloudio/uni-app";
 // 启动监听
 onLaunch(() => {
     console.log("App Launch");
-});
-
-onMounted(() => {
-    onShareTimeline(() => {
-        const { imageUrl, title, query } = {
-            imageUrl: "",
-            title: "分享标题",
-            query: ""
-        };
-
-        return {
-            title,
-            query,
-            imageUrl
-        };
-    });
 });
 
 // 显示监听
@@ -37,4 +20,6 @@ onError((e) => {
     console.error("UniApp 错误：", e);
 });
 </script>
-<style></style>
+<style lang="scss">
+@use "./global.scss" as *;
+</style>

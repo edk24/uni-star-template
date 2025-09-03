@@ -2,11 +2,22 @@ import { defineStore } from "pinia";
 import { getToken, removeToken, setToken } from "../utils/auth";
 import { apiGetUserInfo } from "@/api/user";
 
+interface UserState {
+    userInfo: {
+        id: number;
+        name: string;
+    };
+    token: string | null;
+}
+
 export const useUserStore = defineStore("user", {
-    state: () => {
+    state: (): UserState => {
         return {
             // 用户信息
-            userInfo: {},
+            userInfo: {
+                id: 0,
+                name: ""
+            },
             // token
             token: getToken() || null
         };

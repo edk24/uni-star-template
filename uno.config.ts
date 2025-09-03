@@ -11,9 +11,5 @@ export default defineConfig({
             danger: "#f56c6c"
         }
     },
-    shortcuts: {
-        // 去除 uniapp 按钮默认边框
-        "btn-empty": "after:border-none",
-    },
     presets: [presetUno(), presetAttributify()]
 });

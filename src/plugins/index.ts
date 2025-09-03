@@ -1,17 +1,17 @@
 import { isFunction } from "@/utils/common";
 import type { App } from "vue";
 
-const modules: Record<string, any> = import.meta.glob("./modules/**/*.ts", {
-    eager: true,
-    import: "default"
-});
+import pinia from "./modules/pinia";
+import permission from "./modules/permission";
+
+const plugins = [pinia, permission];
 
 export default {
     install: (app: App) => {
-        for (const defaultFunc of Object.values(modules)) {
-            if (isFunction(defaultFunc)) {
-                defaultFunc(app);
+        plugins.forEach((plugin) => {
+            if (isFunction(plugin)) {
+                plugin(app);
             }
-        }
+        });
     }
 };

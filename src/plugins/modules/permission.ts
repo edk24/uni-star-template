@@ -1,10 +1,10 @@
 import { useUserStore } from "@/stores/user";
 import { loginPage, whiteList } from "@/setting";
+import type { App } from "vue";
 
 /**
  * 初始化路由跳转拦截
  */
-
 function initPermission() {
     const userStore = useUserStore();
     const apiList = ["navigateTo", "redirectTo", "reLaunch", "switchTab"];
@@ -12,7 +12,6 @@ function initPermission() {
     apiList.forEach((funcName: string) => {
         uni.addInterceptor(funcName, {
             invoke(args) {
-                console.log("拦截", args);
                 // 提取 url 去掉查询参数
                 const url = args.url.split("?")[0];
 
@@ -24,25 +23,23 @@ function initPermission() {
 
                 // 未登录跳转到登录页
                 if (!userStore.isLogin) {
-                    uni.showToast({
-                        title: "请先登录",
-                        icon: "none"
-                    });
-                    setTimeout(() => {
-                        // 解决小程序跳转太快看不到 Toast 的问题
+                    uni.showModal({
+                        title: "温馨提示",
+                        content: "请先登录"
+                    }).finally(() => {
                         uni.navigateTo({
                             url: loginPage
                         });
-                    }, 800);
+                    });
                 }
             },
             fail(result) {
-                console.log("拦截失败", result);
+                console.error("拦截失败", result);
             }
         });
     });
 }
 
-export default () => {
+export default (_: App) => {
     initPermission();
 };
